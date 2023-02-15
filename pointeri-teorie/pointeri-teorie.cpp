@@ -1,7 +1,6 @@
-#include <iostream>
-
-using namespace std;
+#include "tema-pentru-16-02.h"
 
 int main()
-{
-}
+{	
+	
+}  
