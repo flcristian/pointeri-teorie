@@ -131,7 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tema-pentru-16-02.h" />
-    <ClInclude Include="teorie-13-02.h" />
+    <ClInclude Include="teorie.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

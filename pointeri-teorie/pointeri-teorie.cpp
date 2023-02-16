@@ -1,6 +1,6 @@
-#include "tema-pentru-16-02.h"
+#include "teorie.h"
 
 int main()
 {	
-	problema10();
+	referinte();
 }  
