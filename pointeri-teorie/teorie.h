@@ -146,3 +146,56 @@ void referinte() {
 	cout << "x : " << x << endl;
 	cout << "y : " << y << endl;
 }
+
+// Apelare prin valoare
+
+void fv(int a, int b) {
+	a = a - 3;
+	b = b + 7;
+}
+
+void exempluApelareValoare() {
+	int x = 12, y = 13;
+	fv(x, y);
+
+	cout << x << endl;
+	cout << y << endl;
+}
+
+// Apelare prin referinte
+
+void fr(int& a, int& b) {
+	a = a - 3;
+	b = b + 7;
+}
+
+void exempluApelareReferinta() {
+	int x = 12, y = 13;
+	fr(x, y);
+
+	cout << x << endl;
+	cout << y << endl;
+}
+
+// Apelare prin adresa
+
+void fa(int* a, int* b) {
+	*a = *a - 3;
+	*b = *b + 7;
+}
+
+void exempluApelareAdresa() {
+	int x = 12, y = 13;
+	fa(&x, &y);
+
+	cout << x << endl;
+	cout << y << endl;
+}
+
+
+
+
+
+
+
+

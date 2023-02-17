@@ -130,6 +130,7 @@
     <ClCompile Include="pointeri-teorie.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="exercitii.h" />
     <ClInclude Include="tema-pentru-16-02.h" />
     <ClInclude Include="teorie.h" />
   </ItemGroup>
