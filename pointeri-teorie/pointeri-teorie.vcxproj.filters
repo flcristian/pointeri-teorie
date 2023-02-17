@@ -20,10 +20,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="teorie-13-02.h">
+    <ClInclude Include="teorie.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tema-pentru-16-02.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="exercitii.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
