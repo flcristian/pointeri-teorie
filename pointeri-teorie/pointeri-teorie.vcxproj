@@ -132,7 +132,11 @@
   <ItemGroup>
     <ClInclude Include="exercitii.h" />
     <ClInclude Include="tema-pentru-16-02.h" />
+    <ClInclude Include="tema-pentru-17-02.h" />
     <ClInclude Include="teorie.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="input.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
