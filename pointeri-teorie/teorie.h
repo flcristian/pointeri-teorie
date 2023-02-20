@@ -5,11 +5,11 @@
 using namespace std;
 
 void size() {
-	cout << sizeof(int) << endl;
-	cout << sizeof(char) << endl;
-	cout << sizeof(double) << endl;
-	cout << sizeof(float) << endl;
-	cout << sizeof(string) << endl;
+	cout << "int : " << sizeof(int) << endl;
+	cout << "char : " << sizeof(char) << endl;
+	cout << "double : " << sizeof(double) << endl;
+	cout << "float : " << sizeof(float) << endl;
+	cout << "string : " << sizeof(string) << endl;
 }
 
 void operatori() {
@@ -135,6 +135,36 @@ void exercitiuPointeri4() {
 	cout << *x << " " << *y << " " << *z << " " << *m << " " << *n << endl;
 }
 
+void exercitiuPointeri5() {
+	int a = 5, b = 7, c = 12, d = 3, e = 29;
+	int* m = &a;
+	int* n = &b;
+	int* x = &c;
+	int* y = &d;
+	int* z = &e;
+
+	*z = *n * 2 - *y * 2;
+	*x = *m + 3;
+	x = &a;
+	z = &d;
+	*y = *z + *m - *n;
+	*n = *n - *m;
+	n = &e;
+	m = &c;
+	*m = *x + *z;
+	*x = *n - *z / 2;
+	*y = *y + *m / 3;
+	*x = *m - 3;
+	x = &b;
+	*x = *m;
+	*y = *z + 2 * *n;
+
+	cout << a << " " << b << " " << c << " " << d << " " << e << endl;
+	cout << &a << " " << &b << " " << &c << " " << &d << " " << &e << endl;
+	cout << m << " " << n << " " << x << " " << y << " " << z << endl;
+	cout << *m << " " << *n << " " << *x << " " << *y << " " << *z << endl;
+}
+
 void referinte() {
 	int x = 40;
 	int y = 32;
@@ -192,6 +222,31 @@ void exempluApelareAdresa() {
 	cout << y << endl;
 }
 
+// Legatura dintre Pointeri si Vectori
+
+void legPointerVector() {
+	int v[5] = { -1,5,7,3,12 };
+	cout << "v = " << v << endl;
+	cout << "v + 2 = " << v + 2 << endl;
+	cout << "*(v + 2) = " << *(v + 2) << endl;
+	cout << "int* p = v" << endl;
+	int* p = v;
+	cout << "*(p + 2) = " << *(p + 2) << endl;
+	cout << "*(p + 2) = p[2], p[2] = " << p[2] << endl;
+	int* a = &v[3];
+	cout << "int* a = &v[3] =>" << endl;
+	cout << "*a = " << *a;
+}
+
+// Afisare vector fara variabila i.
+
+void exAfisareVector(int* p,int d) {
+	int v[5] = { -1,5,7,3,12 };
+	int d = 5;
+	for (int* p = v; p!=v+d+10; p++) {
+		cout << *p << endl;
+	}
+}
 
 
 
