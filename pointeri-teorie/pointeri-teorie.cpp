@@ -1,6 +1,6 @@
-#include "tema-pentru-17-02.h"
+#include "exercitii.h"
 
 int main()
 {	
-	problema10();
+	problemaVectori11();
 }  
