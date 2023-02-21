@@ -2,5 +2,5 @@
 
 int main()
 {	
-	problemaVectori22();
+	problemaVectori27();
 }  

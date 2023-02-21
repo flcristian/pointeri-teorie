@@ -749,3 +749,133 @@ void problemaVectori22() {
 		cout << *a << " ";
 	}
 }
+
+// Problema 23
+// Să se șteargă dintr-un șir 
+// elementul aflat pe o poziție dată. 
+
+void stergePos(int* x, int* d, int k) {
+	for (int* a = x + k; a < x + *d - 1; a++) {
+		*a = *(a + 1);
+	}
+	if (k < *d) {
+		*d = *d - 1;
+	}
+}
+
+void problemaVectori23() {
+	int x[100], d, k;
+	citireVector(x, d);
+	cout << "Introduceti pozitia (0 = prima pozitie) : ";
+	cin >> k;
+
+	stergePos(x, &d, k);
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 24
+// Să se șteargă dintr-un vector toate 
+// elementele care sunt numere prime.
+
+void rezolvareV24(int* x, int* d) {
+	for (int* a = x; a < x + *d; a++) {
+		if (estePrim(*a)) {
+			stergePos(x, d, a - x);
+			a--;
+		}
+	}
+}
+
+void problemaVectori24() {
+	int x[100], d;
+	citireVector(x, d);
+
+	rezolvareV24(x, &d);
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 25
+// Să se șteargă dintr-un 
+// vector toate elementele pare.
+
+void rezolvareV25(int* x, int* d) {
+	for (int* a = x; a < x + *d; a++) {
+		if (*a % 2 == 0) {
+			stergePos(x, d, a - x);
+			a--;
+		}
+	}
+}
+
+void problemaVectori25() {
+	int x[100], d;
+	citireVector(x, d);
+
+	rezolvareV25(x, &d);
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 26
+// Se citește un șir cu n elemente, numere întregi. 
+// Să se șteargă elementele care se repetă, 
+// păstrându-se doar primul de la stânga la dreapta.
+
+void rezolvareV26(int* x, int* d) {
+	for (int* a = x; a < x + *d; a++) {
+		for (int* b = a + 1; b < x + *d; b++) {
+			if (*a == *b) {
+				stergePos(x, d, b - x);
+				b--;
+			}
+		}
+	}
+}
+
+void problemaVectori26() {
+	int x[100], d;
+	citireVector(x, d);
+
+	rezolvareV26(x, &d);
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 27
+// Să se insereze pe o poziție dată 
+// într-un șir o valoare precizată.
+
+void adaugareVal(int* x, int* d, int v, int k) {
+	if (k < *d) {
+		for (int* a = x + *d; a > x + k; a--) {
+			*a = *(a - 1);
+		}
+		*(x + k) = v;
+		*d = *d + 1;
+	}
+	else {
+		*(x + *d) = v;
+		*d = *d + 1;
+	}
+}
+
+void problemaVectori27() {
+	int x[100], d, v, k;
+	citireVector(x, d);
+	cout << "Introduceti valoarea : ";
+	cin >> v;
+	cout << "Introduceti pozitia (0 = prima pozitie) : ";
+	cin >> k;
+
+	adaugareVal(x, &d, v, k);
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
+
