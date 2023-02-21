@@ -385,6 +385,641 @@ void problemaVectori11() {
 }
 
 // Problema 12
+// Se dă un șir cu n elemente, numere reale. 
+// Să se determine câte dintre elemente se află 
+// în afara intervalului închis determinat de 
+// primul și ultimul element.
+
+void rezolvareV12(double* x, int d, int* count) {
+	double st = *x, dr = *(x + d - 1);
+	if (st > dr) {
+		double r = st;
+		st = dr;
+		dr = r;
+	}
+	*count = d;
+	for (double* a = x; a < x + d; a++) {
+		if (*a >= st && *a <= dr) {
+			*count = *count - 1;
+		}
+	}
+}
+
+void citireVectorDouble(double* p, int& d) {
+	ifstream f("input.txt");
+	d = 0;
+	while (!f.eof()) {
+		f >> *(p + d);
+		d++;
+	}
+	f.close();
+}
+
+void problemaVectori12() {
+	double x[100];
+	int d;
+	citireVectorDouble(x, d);
+
+	int count;
+	rezolvareV12(x, d, &count);
+	cout << count << endl;
+}
+
+// Problema 13
 // Se dă un vector cu n numere naturale. 
-// Să se determine câte dintre perechile de 
-// elemente din vector sunt prime între ele.
+// Să se determine câte dintre perechile de elemente 
+// din vector sunt formate din valori cu 
+// aceeași sumă a cifrelor.
+
+void sumaCifre(int* suma, int n) {
+	*suma = 0;
+	while (n > 0) {
+		*suma = *suma + (n % 10);
+		n /= 10;
+	}
+}
+
+void rezolvareV13(int* x, int d, int* count) {
+	*count = 0;
+	for (int* a = x; a < x + d; a++) {
+		int sp;
+		sumaCifre(&sp, *a);
+		for (int* b = a + 1; b < x + d; b++) {
+			int ss;
+			sumaCifre(&ss, *b);
+			if (ss == sp) {
+				*count = *count + 1;
+			}
+		}
+	}
+}
+
+void problemaVectori13() {
+	int x[100], d;
+	citireVector(x, d);
+
+	int count;
+	rezolvareV13(x, d, &count);
+	cout << count << endl;
+}
+
+// Problema 14
+// Se dă un vector x cu n elemente, numere naturale. 
+// Să se construiască un alt vector, y, cu proprietatea 
+// că y[i] este egal cu restul împărțirii lui x[i] 
+// la suma cifrelor lui x[i].
+
+void rezolvareV14(int* x, int d, int* y) {
+	for (int* a = x; a < x + d; a++) {
+		int* b = y + (a - x);
+		int s;
+		sumaCifre(&s, *a);
+		*b = *a % s;
+	}
+}
+
+void afisareV14(int* y, int d) {
+	for (int* a = y; a < y + d; a++) {
+		cout << *a << " ";
+	}
+	cout << endl;
+}
+
+void problemaVectori14() {
+	int x[100], d;
+	citireVector(x, d);
+
+	int y[100];
+	rezolvareV14(x, d, y);
+	afisareV14(y, d);
+}
+
+// Problema 15
+// Se dă un vector x cu n elemente, numere naturale.
+// Să se construiască un alt vector, y, cu n elemente, 
+// cu proprietatea că y[i] este egal cu suma 
+// elementelor din x, cu excepția lui x[i].
+
+void sumaElemente(int* x, int d, int p, int* suma) {
+	*suma = 0;
+	for (int* a = x; a < x + d; a++) {
+		if (a - x != p) {
+			*suma = *suma + *a;
+		}
+	}
+}
+
+void rezolvareV15(int* x, int d, int* y) {
+	for (int* a = x; a < x + d; a++) {
+		int* b = y + (a - x);
+		sumaElemente(x, d, a - x, b);
+	}
+}
+
+void problemaVectori15() {
+	int x[100], d;
+	citireVector(x, d);
+
+	int y[100];
+	rezolvareV15(x, d, y);
+	for (int* a = y; a < y + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 16
+// Se dă un vector x cu n elemente, numere naturale. 
+// Să se construiască un alt vector, y, care 
+//să conțină elementele impare din x, în ordine inversă.
+
+void rezolvareV16(int* x, int d, int* y, int* n) {
+	*n = 0;
+	for (int* a = x + d - 1; a > x - 1; a--) {
+		if (*a % 2 == 1) {
+			*(y + *n) = *a;
+			*n = *n + 1;
+		}
+	}
+}
+
+void problemaVectori16() {
+	int x[100], d;
+	citireVector(x, d);
+
+	int y[100], n;
+	rezolvareV16(x, d, y, &n);
+	for (int* a = y; a < y + n; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 17
+// Se dă un vector x cu n elemente, numere naturale. 
+// Să se construiască un alt vector, y, care să conțină 
+// elementele prime din x, în ordine inversă.
+
+int countDiv(int x) {
+	int c = 0;
+	for (int i = 1; i <= x; i++) {
+		if (x % i == 0) {
+			c++;
+		}
+	}
+	return c;
+}
+
+bool estePrim(int x) {
+	if (countDiv(x) == 2) {
+		return 1;
+	}
+	return 0;
+}
+
+void rezolvareV17(int* x, int d, int* y, int* n) {
+	*n = 0;
+	for (int* a = x + d - 1; a > x - 1; a--) {
+		if (estePrim(*a)) {
+			*(y + *n) = *a;
+			*n = *n + 1;
+		}
+	}
+}
+
+void problemaVectori17() {
+	int x[100], d;
+	citireVector(x, d);
+
+	int y[100], n;
+	rezolvareV17(x, d, y, &n);
+	for (int* a = y; a < y + n; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 18
+// Se dă un vector cu n numere naturale. 
+// Să se determine câte dintre elementele 
+// vectorului sunt prime cu ultimul element.
+
+void rezolvareV18(int* x, int d, int* count) {
+	int* l = x + d - 1;
+	*count = 0;
+	for (int* a = x; a < x + d - 1; a++) {
+		if (cmmdc(*a, *l) == 1) {
+			*count = *count + 1;
+		}
+	}
+}
+
+void problemaVectori18() {
+	int x[100], d;
+	citireVector(x, d);
+
+	int count;
+	rezolvareV18(x, d, &count);
+	cout << count << endl;
+}
+
+// Problema 19
+// Să se înlocuiască toate elementele nule 
+// dintr-un vector cu elemente numere naturale 
+// cu partea întreagă a mediei aritmetice a 
+// elementelor nenule din vector.
+
+void rezolvareV19(int* x, int d) {
+	int suma = 0, n = 0;
+	for (int* a = x; a < x + d; a++) {
+		if (*a != 0) {
+			suma += *a;
+			n++;
+		}
+	}
+	int medie = suma / n;
+	for (int* a = x; a < x + d; a++) {
+		if (*a == 0) {
+			*a = medie;
+		}
+	}
+}
+
+void problemaVectori19() {
+	int x[100], d;
+	citireVector(x, d);
+
+	rezolvareV19(x, d);
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 20
+// Se dă un vector x cu n elemente numere întregi, 
+// și un vector y cu m elemente, de asemenea numere întregi. 
+// Să se afișeze toate elementele din vectorul x care sunt 
+// mai mici decât toate elementele din vectorul y.
+
+void rezolvareV20(int* x, int* y, int n, int m) {
+	for (int* a = x; a < x + n; a++) {
+		bool flag = true;
+		for (int* b = y; b < y + m; b++) {
+			if (*a > *b) {
+				flag = false;
+			}
+		}
+		if (flag) {
+			cout << *a << " ";
+		}
+	}
+}
+
+void citireDoiVectori(int* x, int* y, int& n, int& m) {
+	ifstream f("input.txt");
+	f >> n;
+	for (int* a = x; a < x + n; a++) {
+		f >> *a;
+	}
+	f >> m;
+	for (int* a = y; a < y + m; a++) {
+		f >> *a;
+	}
+	f.close();
+}
+
+void problemaVectori20() {
+	int x[100], y[100], n, m;
+	citireDoiVectori(x, y, n, m);
+
+	rezolvareV20(x, y, n, m);
+}
+
+// Problema 21
+// Se dă un vector x cu n elemente numere întregi, 
+// și un vector y cu m elemente, de asemenea numere întregi. 
+// Să se afișeze toate elementele din vectorul x care sunt 
+// mai mari decât toate elementele din vectorul y.
+
+void rezolvareV21(int* x, int* y, int n, int m) {
+	for (int* a = x; a < x + n; a++) {
+		bool flag = true;
+		for (int* b = y; b < y + m; b++) {
+			if (*a < *b) {
+				flag = false;
+			}
+		}
+		if (flag) {
+			cout << *a << " ";
+		}
+	}
+}
+
+void problemaVectori21() {
+	int x[100], y[100], n, m;
+	citireDoiVectori(x, y, n, m);
+
+	rezolvareV21(x, y, n, m);
+}
+
+// Problema 22
+// Se dă un număr natural nenul k și vector cu n numere naturale. 
+// Să se înlocuiască fiecare element cu multiplul lui k cel mai
+// apropiat de el și să se afișeze elementele astfel obținute 
+// în ordine inversă.
+
+void rezolvareV22(int* x, int d, int k) {
+	for (int* a = x; a < x + d; a++) {
+		int c = *a / k;
+		int st = c * k, dr = (c + 1) * k;
+		if (*a - st > dr - *a) {
+			*a = dr;
+		}
+		else {
+			*a = st;
+		}
+	}
+}
+
+void problemaVectori22() {
+	int x[100], d, k;
+	citireVector(x, d);
+	cout << "Introduceti k : ";
+	cin >> k;
+
+	rezolvareV22(x, d, k);
+	for (int* a = x + d - 1; a > x - 1; a--) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 23
+// Să se șteargă dintr-un șir 
+// elementul aflat pe o poziție dată. 
+
+void stergePos(int* x, int* d, int k) {
+	for (int* a = x + k; a < x + *d - 1; a++) {
+		*a = *(a + 1);
+	}
+	if (k < *d) {
+		*d = *d - 1;
+	}
+}
+
+void problemaVectori23() {
+	int x[100], d, k;
+	citireVector(x, d);
+	cout << "Introduceti pozitia (0 = prima pozitie) : ";
+	cin >> k;
+
+	stergePos(x, &d, k);
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 24
+// Să se șteargă dintr-un vector toate 
+// elementele care sunt numere prime.
+
+void rezolvareV24(int* x, int* d) {
+	for (int* a = x; a < x + *d; a++) {
+		if (estePrim(*a)) {
+			stergePos(x, d, a - x);
+			a--;
+		}
+	}
+}
+
+void problemaVectori24() {
+	int x[100], d;
+	citireVector(x, d);
+
+	rezolvareV24(x, &d);
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 25
+// Să se șteargă dintr-un 
+// vector toate elementele pare.
+
+void rezolvareV25(int* x, int* d) {
+	for (int* a = x; a < x + *d; a++) {
+		if (*a % 2 == 0) {
+			stergePos(x, d, a - x);
+			a--;
+		}
+	}
+}
+
+void problemaVectori25() {
+	int x[100], d;
+	citireVector(x, d);
+
+	rezolvareV25(x, &d);
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 26
+// Se citește un șir cu n elemente, numere întregi. 
+// Să se șteargă elementele care se repetă, 
+// păstrându-se doar primul de la stânga la dreapta.
+
+void rezolvareV26(int* x, int* d) {
+	for (int* a = x; a < x + *d; a++) {
+		for (int* b = a + 1; b < x + *d; b++) {
+			if (*a == *b) {
+				stergePos(x, d, b - x);
+				b--;
+			}
+		}
+	}
+}
+
+void problemaVectori26() {
+	int x[100], d;
+	citireVector(x, d);
+
+	rezolvareV26(x, &d);
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 27
+// Să se insereze pe o poziție dată 
+// într-un șir o valoare precizată.
+
+void adaugareVal(int* x, int* d, int v, int k) {
+	if (k < *d) {
+		for (int* a = x + *d; a > x + k; a--) {
+			*a = *(a - 1);
+		}
+		*(x + k) = v;
+		*d = *d + 1;
+	}
+	else {
+		*(x + *d) = v;
+		*d = *d + 1;
+	}
+}
+
+void problemaVectori27() {
+	int x[100], d, v, k;
+	citireVector(x, d);
+	cout << "Introduceti valoarea : ";
+	cin >> v;
+	cout << "Introduceti pozitia (0 = prima pozitie) : ";
+	cin >> k;
+
+	adaugareVal(x, &d, v, k);
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 28
+// Să se insereze într-un șir după 
+// fiecare element par dublul său.
+
+void rezolvareV28(int* x, int* d) {
+	for (int* a = x; a < x + *d; a++) {
+		if (*a % 2 == 0) {
+			adaugareVal(x, d, 2 * *a, a - x + 1);
+			a++;
+		}
+	}
+}
+
+void problemaVectori28() {
+	int x[100], d;
+	citireVector(x, d);
+
+	rezolvareV28(x, &d);
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 29
+// Să se insereze într-un șir înaintea 
+// fiecărui element pătrat perfect 
+// rădăcina sa pătrată.
+
+bool estePatratPerfect(int x) {
+	double s = sqrt(x);
+	if (s == (int)s) {
+		return 1;
+	}
+	return 0;
+}
+
+void rezolvareV29(int* x, int* d) {
+	for (int* a = x; a < x + *d; a++) {
+		if (estePatratPerfect(*a)) {
+			adaugareVal(x, d, sqrt(*a), a - x);
+			a++;
+		}
+	}
+}
+
+void problemaVectori29() {
+	int x[100], d;
+	citireVector(x, d);
+
+	rezolvareV29(x, &d);
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 30
+// Se dau n numere întregi. 
+// Să se insereze între oricare două 
+// numere de aceeași paritate media 
+// lor aritmetică.
+
+void rezolvareV30(int* x, int* d) {
+	for (int* a = x + 1; a < x + *d; a++) {
+		if (*a % 2 == *(a - 1) % 2) {
+			adaugareVal(x, d, (*a + *(a - 1)) / 2, a - x);
+			a++;
+		}
+	}
+}
+
+void problemaVectori30() {
+	int x[100], d;
+	citireVector(x, d);
+
+	rezolvareV30(x, &d);
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 31
+// Determinați toate permutările circulare 
+// spre stânga ale unui vector dat.
+
+void rezolvareV31(int* x, int d) {
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+	cout << endl;
+	for (int i = 0; i < d - 1; i++) {
+		int a = *x;
+		for (int* b = x; b < x + d - 1; b++) {
+			*b = *(b + 1);
+		}
+		*(x + d - 1) = a;
+		for (int* a = x; a < x + d; a++) {
+			cout << *a << " ";
+		}
+		cout << endl;
+	}
+}
+
+void problemaVectori31() {
+	int x[100], d;
+	citireVector(x, d);
+
+	rezolvareV31(x, d);
+}
+
+// Problema 32
+// Gigel a găsit un șir cu n numere naturale. 
+// În fiecare zi Gigel parcurge șirul și când găsește o 
+// pereche de elemente consecutive egale o elimină din șir 
+// și se oprește. Determinați în câte zile va elimina Gigel 
+// elemente din șir și care sunt valorile din 
+// șir după eliminări.
+
+void rezolvareV32(int* x, int* d, int* count) {
+	bool flag = true;
+	*count = 0;
+	do {
+		flag = true;
+		for (int* a = x; a < x + *d - 1 && flag; a++) {
+			if (*a == *(a + 1)) {
+				*count = *count + 1;
+				stergePos(x, d, a - x);
+				stergePos(x, d, a - x);
+				flag = false;
+			}
+		}
+	} while (flag == false);
+}
+
+void problemaVectori32() {
+	int x[100], d;
+	citireVector(x, d);
+
+	int count;
+	rezolvareV32(x, &d, &count);
+	cout << count << endl;
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
