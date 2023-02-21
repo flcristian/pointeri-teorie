@@ -597,3 +597,155 @@ void problemaVectori17() {
 }
 
 // Problema 18
+// Se dă un vector cu n numere naturale. 
+// Să se determine câte dintre elementele 
+// vectorului sunt prime cu ultimul element.
+
+void rezolvareV18(int* x, int d, int* count) {
+	int* l = x + d - 1;
+	*count = 0;
+	for (int* a = x; a < x + d - 1; a++) {
+		if (cmmdc(*a, *l) == 1) {
+			*count = *count + 1;
+		}
+	}
+}
+
+void problemaVectori18() {
+	int x[100], d;
+	citireVector(x, d);
+
+	int count;
+	rezolvareV18(x, d, &count);
+	cout << count << endl;
+}
+
+// Problema 19
+// Să se înlocuiască toate elementele nule 
+// dintr-un vector cu elemente numere naturale 
+// cu partea întreagă a mediei aritmetice a 
+// elementelor nenule din vector.
+
+void rezolvareV19(int* x, int d) {
+	int suma = 0, n = 0;
+	for (int* a = x; a < x + d; a++) {
+		if (*a != 0) {
+			suma += *a;
+			n++;
+		}
+	}
+	int medie = suma / n;
+	for (int* a = x; a < x + d; a++) {
+		if (*a == 0) {
+			*a = medie;
+		}
+	}
+}
+
+void problemaVectori19() {
+	int x[100], d;
+	citireVector(x, d);
+
+	rezolvareV19(x, d);
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 20
+// Se dă un vector x cu n elemente numere întregi, 
+// și un vector y cu m elemente, de asemenea numere întregi. 
+// Să se afișeze toate elementele din vectorul x care sunt 
+// mai mici decât toate elementele din vectorul y.
+
+void rezolvareV20(int* x, int* y, int n, int m) {
+	for (int* a = x; a < x + n; a++) {
+		bool flag = true;
+		for (int* b = y; b < y + m; b++) {
+			if (*a > *b) {
+				flag = false;
+			}
+		}
+		if (flag) {
+			cout << *a << " ";
+		}
+	}
+}
+
+void citireDoiVectori(int* x, int* y, int& n, int& m) {
+	ifstream f("input.txt");
+	f >> n;
+	for (int* a = x; a < x + n; a++) {
+		f >> *a;
+	}
+	f >> m;
+	for (int* a = y; a < y + m; a++) {
+		f >> *a;
+	}
+	f.close();
+}
+
+void problemaVectori20() {
+	int x[100], y[100], n, m;
+	citireDoiVectori(x, y, n, m);
+
+	rezolvareV20(x, y, n, m);
+}
+
+// Problema 21
+// Se dă un vector x cu n elemente numere întregi, 
+// și un vector y cu m elemente, de asemenea numere întregi. 
+// Să se afișeze toate elementele din vectorul x care sunt 
+// mai mari decât toate elementele din vectorul y.
+
+void rezolvareV21(int* x, int* y, int n, int m) {
+	for (int* a = x; a < x + n; a++) {
+		bool flag = true;
+		for (int* b = y; b < y + m; b++) {
+			if (*a < *b) {
+				flag = false;
+			}
+		}
+		if (flag) {
+			cout << *a << " ";
+		}
+	}
+}
+
+void problemaVectori21() {
+	int x[100], y[100], n, m;
+	citireDoiVectori(x, y, n, m);
+
+	rezolvareV21(x, y, n, m);
+}
+
+// Problema 22
+// Se dă un număr natural nenul k și vector cu n numere naturale. 
+// Să se înlocuiască fiecare element cu multiplul lui k cel mai
+// apropiat de el și să se afișeze elementele astfel obținute 
+// în ordine inversă.
+
+void rezolvareV22(int* x, int d, int k) {
+	for (int* a = x; a < x + d; a++) {
+		int c = *a / k;
+		int st = c * k, dr = (c + 1) * k;
+		if (*a - st > dr - *a) {
+			*a = dr;
+		}
+		else {
+			*a = st;
+		}
+	}
+}
+
+void problemaVectori22() {
+	int x[100], d, k;
+	citireVector(x, d);
+	cout << "Introduceti k : ";
+	cin >> k;
+
+	rezolvareV22(x, d, k);
+	for (int* a = x + d - 1; a > x - 1; a--) {
+		cout << *a << " ";
+	}
+}
