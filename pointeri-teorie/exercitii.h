@@ -385,6 +385,215 @@ void problemaVectori11() {
 }
 
 // Problema 12
+// Se dă un șir cu n elemente, numere reale. 
+// Să se determine câte dintre elemente se află 
+// în afara intervalului închis determinat de 
+// primul și ultimul element.
+
+void rezolvareV12(double* x, int d, int* count) {
+	double st = *x, dr = *(x + d - 1);
+	if (st > dr) {
+		double r = st;
+		st = dr;
+		dr = r;
+	}
+	*count = d;
+	for (double* a = x; a < x + d; a++) {
+		if (*a >= st && *a <= dr) {
+			*count = *count - 1;
+		}
+	}
+}
+
+void citireVectorDouble(double* p, int& d) {
+	ifstream f("input.txt");
+	d = 0;
+	while (!f.eof()) {
+		f >> *(p + d);
+		d++;
+	}
+	f.close();
+}
+
+void problemaVectori12() {
+	double x[100];
+	int d;
+	citireVectorDouble(x, d);
+
+	int count;
+	rezolvareV12(x, d, &count);
+	cout << count << endl;
+}
+
+// Problema 13
 // Se dă un vector cu n numere naturale. 
-// Să se determine câte dintre perechile de 
-// elemente din vector sunt prime între ele.
+// Să se determine câte dintre perechile de elemente 
+// din vector sunt formate din valori cu 
+// aceeași sumă a cifrelor.
+
+void sumaCifre(int* suma, int n) {
+	*suma = 0;
+	while (n > 0) {
+		*suma = *suma + (n % 10);
+		n /= 10;
+	}
+}
+
+void rezolvareV13(int* x, int d, int* count) {
+	*count = 0;
+	for (int* a = x; a < x + d; a++) {
+		int sp;
+		sumaCifre(&sp, *a);
+		for (int* b = a + 1; b < x + d; b++) {
+			int ss;
+			sumaCifre(&ss, *b);
+			if (ss == sp) {
+				*count = *count + 1;
+			}
+		}
+	}
+}
+
+void problemaVectori13() {
+	int x[100], d;
+	citireVector(x, d);
+
+	int count;
+	rezolvareV13(x, d, &count);
+	cout << count << endl;
+}
+
+// Problema 14
+// Se dă un vector x cu n elemente, numere naturale. 
+// Să se construiască un alt vector, y, cu proprietatea 
+// că y[i] este egal cu restul împărțirii lui x[i] 
+// la suma cifrelor lui x[i].
+
+void rezolvareV14(int* x, int d, int* y) {
+	for (int* a = x; a < x + d; a++) {
+		int* b = y + (a - x);
+		int s;
+		sumaCifre(&s, *a);
+		*b = *a % s;
+	}
+}
+
+void afisareV14(int* y, int d) {
+	for (int* a = y; a < y + d; a++) {
+		cout << *a << " ";
+	}
+	cout << endl;
+}
+
+void problemaVectori14() {
+	int x[100], d;
+	citireVector(x, d);
+
+	int y[100];
+	rezolvareV14(x, d, y);
+	afisareV14(y, d);
+}
+
+// Problema 15
+// Se dă un vector x cu n elemente, numere naturale.
+// Să se construiască un alt vector, y, cu n elemente, 
+// cu proprietatea că y[i] este egal cu suma 
+// elementelor din x, cu excepția lui x[i].
+
+void sumaElemente(int* x, int d, int p, int* suma) {
+	*suma = 0;
+	for (int* a = x; a < x + d; a++) {
+		if (a - x != p) {
+			*suma = *suma + *a;
+		}
+	}
+}
+
+void rezolvareV15(int* x, int d, int* y) {
+	for (int* a = x; a < x + d; a++) {
+		int* b = y + (a - x);
+		sumaElemente(x, d, a - x, b);
+	}
+}
+
+void problemaVectori15() {
+	int x[100], d;
+	citireVector(x, d);
+
+	int y[100];
+	rezolvareV15(x, d, y);
+	for (int* a = y; a < y + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 16
+// Se dă un vector x cu n elemente, numere naturale. 
+// Să se construiască un alt vector, y, care 
+//să conțină elementele impare din x, în ordine inversă.
+
+void rezolvareV16(int* x, int d, int* y, int* n) {
+	*n = 0;
+	for (int* a = x + d - 1; a > x - 1; a--) {
+		if (*a % 2 == 1) {
+			*(y + *n) = *a;
+			*n = *n + 1;
+		}
+	}
+}
+
+void problemaVectori16() {
+	int x[100], d;
+	citireVector(x, d);
+
+	int y[100], n;
+	rezolvareV16(x, d, y, &n);
+	for (int* a = y; a < y + n; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 17
+// Se dă un vector x cu n elemente, numere naturale. 
+// Să se construiască un alt vector, y, care să conțină 
+// elementele prime din x, în ordine inversă.
+
+int countDiv(int x) {
+	int c = 0;
+	for (int i = 1; i <= x; i++) {
+		if (x % i == 0) {
+			c++;
+		}
+	}
+	return c;
+}
+
+bool estePrim(int x) {
+	if (countDiv(x) == 2) {
+		return 1;
+	}
+	return 0;
+}
+
+void rezolvareV17(int* x, int d, int* y, int* n) {
+	*n = 0;
+	for (int* a = x + d - 1; a > x - 1; a--) {
+		if (estePrim(*a)) {
+			*(y + *n) = *a;
+			*n = *n + 1;
+		}
+	}
+}
+
+void problemaVectori17() {
+	int x[100], d;
+	citireVector(x, d);
+
+	int y[100], n;
+	rezolvareV17(x, d, y, &n);
+	for (int* a = y; a < y + n; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 18
