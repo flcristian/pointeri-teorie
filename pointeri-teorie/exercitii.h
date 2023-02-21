@@ -879,3 +879,147 @@ void problemaVectori27() {
 	}
 }
 
+// Problema 28
+// Să se insereze într-un șir după 
+// fiecare element par dublul său.
+
+void rezolvareV28(int* x, int* d) {
+	for (int* a = x; a < x + *d; a++) {
+		if (*a % 2 == 0) {
+			adaugareVal(x, d, 2 * *a, a - x + 1);
+			a++;
+		}
+	}
+}
+
+void problemaVectori28() {
+	int x[100], d;
+	citireVector(x, d);
+
+	rezolvareV28(x, &d);
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 29
+// Să se insereze într-un șir înaintea 
+// fiecărui element pătrat perfect 
+// rădăcina sa pătrată.
+
+bool estePatratPerfect(int x) {
+	double s = sqrt(x);
+	if (s == (int)s) {
+		return 1;
+	}
+	return 0;
+}
+
+void rezolvareV29(int* x, int* d) {
+	for (int* a = x; a < x + *d; a++) {
+		if (estePatratPerfect(*a)) {
+			adaugareVal(x, d, sqrt(*a), a - x);
+			a++;
+		}
+	}
+}
+
+void problemaVectori29() {
+	int x[100], d;
+	citireVector(x, d);
+
+	rezolvareV29(x, &d);
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 30
+// Se dau n numere întregi. 
+// Să se insereze între oricare două 
+// numere de aceeași paritate media 
+// lor aritmetică.
+
+void rezolvareV30(int* x, int* d) {
+	for (int* a = x + 1; a < x + *d; a++) {
+		if (*a % 2 == *(a - 1) % 2) {
+			adaugareVal(x, d, (*a + *(a - 1)) / 2, a - x);
+			a++;
+		}
+	}
+}
+
+void problemaVectori30() {
+	int x[100], d;
+	citireVector(x, d);
+
+	rezolvareV30(x, &d);
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
+
+// Problema 31
+// Determinați toate permutările circulare 
+// spre stânga ale unui vector dat.
+
+void rezolvareV31(int* x, int d) {
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+	cout << endl;
+	for (int i = 0; i < d - 1; i++) {
+		int a = *x;
+		for (int* b = x; b < x + d - 1; b++) {
+			*b = *(b + 1);
+		}
+		*(x + d - 1) = a;
+		for (int* a = x; a < x + d; a++) {
+			cout << *a << " ";
+		}
+		cout << endl;
+	}
+}
+
+void problemaVectori31() {
+	int x[100], d;
+	citireVector(x, d);
+
+	rezolvareV31(x, d);
+}
+
+// Problema 32
+// Gigel a găsit un șir cu n numere naturale. 
+// În fiecare zi Gigel parcurge șirul și când găsește o 
+// pereche de elemente consecutive egale o elimină din șir 
+// și se oprește. Determinați în câte zile va elimina Gigel 
+// elemente din șir și care sunt valorile din 
+// șir după eliminări.
+
+void rezolvareV32(int* x, int* d, int* count) {
+	bool flag = true;
+	*count = 0;
+	do {
+		flag = true;
+		for (int* a = x; a < x + *d - 1 && flag; a++) {
+			if (*a == *(a + 1)) {
+				*count = *count + 1;
+				stergePos(x, d, a - x);
+				stergePos(x, d, a - x);
+				flag = false;
+			}
+		}
+	} while (flag == false);
+}
+
+void problemaVectori32() {
+	int x[100], d;
+	citireVector(x, d);
+
+	int count;
+	rezolvareV32(x, &d, &count);
+	cout << count << endl;
+	for (int* a = x; a < x + d; a++) {
+		cout << *a << " ";
+	}
+}
