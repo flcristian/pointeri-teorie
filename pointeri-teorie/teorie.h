@@ -165,6 +165,33 @@ void exercitiuPointeri5() {
 	cout << *m << " " << *n << " " << *x << " " << *y << " " << *z << endl;
 }
 
+void exercitiuPointeri6() {
+	int a = 7, b = 9, c = 11, d = 5, e = 3;
+	int* x = &a;
+	int* y = &b;
+	int* z = &c;
+	int* m = &d;
+	int* n = &e;
+
+	*m = *n + *x / 2;
+	*x = *y * 2 - 2 * *n;
+	m = &a;
+	x = &b;
+	*n = *x + c / 3;
+	*m = *x + *y - *z;
+	z = &e;
+	*z = *m + *x - *y * 2;
+	*n = *y - *n;
+	*y = *n;
+	n = &b;
+	*y = *n / 3 + *x / 2;
+
+	cout << a << " " << b << " " << c << " " << d << " " << e << endl;
+	cout << &a << " " << &b << " " << &c << " " << &d << " " << &e << endl;
+	cout << x << " " << y << " " << z << " " << m << " " << n << endl;
+	cout << *x << " " << *y << " " << *z << " " << *m << " " << *n << endl;
+}
+
 void referinte() {
 	int x = 40;
 	int y = 32;
@@ -240,13 +267,14 @@ void legPointerVector() {
 
 // Afisare vector fara variabila i.
 
-void exAfisareVector(int* p,int d) {
+void exAfisareVector() {
 	int v[5] = { -1,5,7,3,12 };
 	int d = 5;
 	for (int* p = v; p!=v+d+10; p++) {
 		cout << *p << endl;
 	}
 }
+
 
 
 

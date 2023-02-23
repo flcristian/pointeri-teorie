@@ -1,6 +1,6 @@
-#include "exercitii.h"
+#include "teorie.h"
 
 int main()
 {	
-	problemaVectori32();
+	exercitiuPointeri6();
 }  
